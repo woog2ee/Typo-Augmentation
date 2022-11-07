@@ -26,7 +26,7 @@ def make_typo_in_sent(sent, word_typo_maker,
     
     # 한글자 이상인 단어 개수 * typo_ratio만큼 오타낼 예정
     over1_cnt = sum([1 if len(word) > 1 else 0 for word in clean_words])
-    typo_word_cnt = int(over1_cnt * typo_ratio)
+    typo_word_cnt = round(over1_cnt * typo_ratio)
     #print(f'{typo_word_cnt}개의 단어로 오타를 만듭니다.')
     
     

@@ -41,15 +41,17 @@ if __name__ == '__main__':
     
     
     # 데이터 불러오기 및 증강한 데이터 편하게 보기 위한 id 추가
-    data = pd.read_csv(f'./{args.file_name}.csv')
+    data = pd.read_csv(f'./{args.file_name}.txt', sep='\t')
     if 'id' not in list(data.columns):
         data['id'] = list(range(0, len(data)))
+    data = data.dropna(subset=[f'{args.column_name}'], axis=0).reset_index()
         
     # augment_size만큼 기존 데이터 복제
     for _ in range(args.augment_size-1):
-        append_data = pd.read_csv(f'./{args.file_name}.csv')
+        append_data = pd.read_csv(f'./{args.file_name}.txt', sep='\t')
         if 'id' not in list(append_data.columns):
             append_data['id'] = list(range(0, len(append_data)))
+        append_data = append_data.dropna(subset=[f'{args.column_name}'], axis=0).reset_index()
         
         data = pd.concat([data, append_data], ignore_index=True)
     data = data.sort_values('id', ignore_index=True)
